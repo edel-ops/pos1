@@ -1,3 +1,7 @@
+# POS con CI4 en creación con tutoria y creditos de codigos de programación
+
+[yt official site](https://www.youtube.com/channel/UCKaa9SPITNARrLDvX2olvrA)
+
 # CodeIgniter 4 Framework
 
 ## What is CodeIgniter?
