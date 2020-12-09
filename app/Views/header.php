@@ -43,7 +43,7 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Productos</a>
+                                <a class="nav-link" href="<?php echo base_url ();?>/Productos">Productos</a>
                                 <a class="nav-link" href="<?php echo base_url ();?>/Unidades">Unidades</a>
                                 <a class="nav-link" href="<?php echo base_url ();?>/Categorias">Categorias</a>
                             </nav>
