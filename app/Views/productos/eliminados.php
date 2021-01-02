@@ -6,7 +6,7 @@
             <div>
                 <p>
                     
-                    <a href="<?php echo base_url() ?>/unidades" class="btn btn-warning">Unidades</a>
+                    <a href="<?php echo base_url() ?>/productos" class="btn btn-warning">Productos</a>
                 </p>
             </div>
 
@@ -14,23 +14,27 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Nombre corto</th>
-                            <th></th>                            
-                        </tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>existencias</th>
+                        <th></th>
+                    </tr>
                     </thead>
 
                     <tbody>
                         <?php foreach ($datos as $datos) { ?>
 
                             <tr>
-                                <td><?php echo $datos['id']; ?></td>
+                            <td><?php echo $datos['id']; ?></td>
+                                <td><?php echo $datos['codigo']; ?></td>
                                 <td><?php echo $datos['nombre']; ?></td>
-                                <td><?php echo $datos['nombre_corto']; ?></td>                                
+                                <td><?php echo $datos['precio_venta']; ?></td>
+                                <td><?php echo $datos['existencia']; ?></td>                                
                                 
-                                <td><a href="#" data-href="<?php echo base_url() . '/unidades/reingresar/' . $datos['id']; ?>" 
+                                <td><a href="#" data-href="<?php echo base_url() . '/productos/reingresar/' . $datos['id']; ?>" 
                                 data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Reingresar Registro" 
                                 class="btn btn-dark"><i class="fas fa-trash-restore-alt"></i></a></td>
                             </tr>

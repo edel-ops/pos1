@@ -33,7 +33,7 @@
                                 <td><?php echo $datos['codigo']; ?></td>
                                 <td><?php echo $datos['nombre']; ?></td>
                                 <td><?php echo $datos['precio_venta']; ?></td>
-                                <td><?php echo $datos['existencias']; ?></td>
+                                <td><?php echo $datos['existencia']; ?></td>
 
                                 <td><a href="<?php echo base_url() . '/productos/editar/' . $datos['id']; ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
 

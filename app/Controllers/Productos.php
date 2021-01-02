@@ -54,10 +54,16 @@ class Productos extends BaseController
 	
 	public function insertar(){
 
-		if ($this->request->getMethod() == "post" && $this->validate(['nombre' => 'required', 'nombre_corto' => 'required'])) {			
+		if ($this->request->getMethod() == "post") {			
 		
-		$this->productos->save(['nombre' => $this->request->getPost('nombre'), 
-		'nombre_corto' => $this->request->getPost('nombre_corto')]);		
+		$this->productos->save(['codigo' => $this->request->getPost('codigo'), 
+			'nombre' => $this->request->getPost('nombre'), 
+			'precio_venta' => $this->request->getPost('precio_venta'), 
+			'precio_compra' => $this->request->getPost('precio_compra'), 
+			'stock_minimo' => $this->request->getPost('stock_minimo'), 
+			'inventariable' => $this->request->getPost('inventariable'), 
+			'id_unidad' => $this->request->getPost('id_unidad'), 
+			'id_categoria' => $this->request->getPost('id_categoria')]);		
 		return redirect()->to(base_url().'/productos');
 
 		}
@@ -73,9 +79,11 @@ class Productos extends BaseController
 
 	public function editar($id){
 
-		$producto = $this->productos->where('id', $id)->first();
-		$data = ['titulo' => 'Editar producto', 'datos' => $producto];
+		$unidades = $this->unidades->where('activo', 1)->findAll();
+		$categorias = $this->categorias->where('activo', 1)->findAll();
+		$productos = $this->productos->where('id', $id)->first();
 
+		$data = ['titulo' => 'Editar producto', 'unidades' => $unidades, 'categorias' => $categorias, 'productos' => $productos];
 		echo view('header');
 		echo view('productos/editar', $data);
 		echo view('footer');
@@ -84,11 +92,17 @@ class Productos extends BaseController
 	
 	public function actualizar(){
 
-		$this->productos->update($this->request->getPost('id'),
-		['nombre' => $this->request->getPost('nombre'), 
-		'nombre_corto' => $this->request->getPost('nombre_corto')]);
+		$this->productos->update($this->request->getPost('id'),[
+			'codigo' => $this->request->getPost('codigo'), 
+			'nombre' => $this->request->getPost('nombre'), 
+			'precio_venta' => $this->request->getPost('precio_venta'), 
+			'precio_compra' => $this->request->getPost('precio_compra'), 
+			'stock_minimo' => $this->request->getPost('stock_minimo'), 
+			'inventariable' => $this->request->getPost('inventariable'), 
+			'id_unidad' => $this->request->getPost('id_unidad'), 
+			'id_categoria' => $this->request->getPost('id_categoria')]);		
 		return redirect()->to(base_url().'/productos');
-		
+	
 	}
 
 	public function eliminar($id){
