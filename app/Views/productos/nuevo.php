@@ -2,9 +2,16 @@
     <main>
         <div class="container-fluid">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
+
+            <?php if (isset($validation)) { ?>
+                <div class="alert alert-danger">
+                    <?php echo $validation->listErrors(); ?>
+                </div>
+            <?php } ?>
+
             <?php \Config\Services::validation()->listErrors(); ?>
             <form action="<?php echo base_url(); ?>/productos/insertar" autocomplete="off" method="post">
-            <?php csrf_field(); ?>
+            
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 col-sm-6">
@@ -14,7 +21,7 @@
 
                         <div class="col-12 col-sm-6">
                             <label>Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required />
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo set_value('nombre'); ?>" required />
                         </div>
                     </div>
                 </div>
@@ -46,12 +53,12 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label>Precio de venta</label>
-                            <input type="text" class="form-control" id="precio_venta" name="precio_venta" autofocus required />
+                            <input type="text" class="form-control" id="precio_venta" name="precio_venta" value="<?php echo set_value('precio_venta'); ?>" required />
                         </div>
 
                         <div class="col-12 col-sm-6">
                             <label>Precio de compra</label>
-                            <input type="text" class="form-control" id="precio_compra" name="precio_compra" required />
+                            <input type="text" class="form-control" id="precio_compra" name="precio_compra" value="<?php echo set_value('precio_compra'); ?>" required />
                         </div>
                     </div>
                 </div>
@@ -60,7 +67,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label>Stock minimo</label>
-                            <input type="text" class="form-control" id="stock_minimo" name="stock_minimo" autofocus required />
+                            <input type="text" class="form-control" id="stock_minimo" name="stock_minimo" value="<?php echo set_value('stock_minimo'); ?>" required />
                         </div>
 
                         <div class="col-12 col-sm-6">
