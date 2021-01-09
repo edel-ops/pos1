@@ -79,12 +79,9 @@ class Clientes extends BaseController
 
 	public function editar($id)
 	{
-
-		$unidades = $this->unidades->where('activo', 1)->findAll();
-		$categorias = $this->categorias->where('activo', 1)->findAll();
 		$clientes = $this->clientes->where('id', $id)->first();
 
-		$data = ['titulo' => 'Editar cliente', 'unidades' => $unidades, 'categorias' => $categorias, 'clientes' => $clientes];
+		$data = ['titulo' => 'Editar cliente', 'clientes' => $clientes];
 		echo view('header');
 		echo view('clientes/editar', $data);
 		echo view('footer');
@@ -95,14 +92,10 @@ class Clientes extends BaseController
 
 		$this->clientes->update($this->request->getPost('id'), [
 			'nombre' => $this->request->getPost('nombre'),
-			'nombre' => $this->request->getPost('nombre'),
-			'precio_venta' => $this->request->getPost('precio_venta'),
-			'precio_compra' => $this->request->getPost('precio_compra'),
-			'stock_minimo' => $this->request->getPost('stock_minimo'),
-			'inventariable' => $this->request->getPost('inventariable'),
-			'id_unidad' => $this->request->getPost('id_unidad'),
-			'id_categoria' => $this->request->getPost('id_categoria')
-		]);
+				'direccion' => $this->request->getPost('direccion'),
+				'telefono' => $this->request->getPost('telefono'),
+				'correo' => $this->request->getPost('correo'),
+			]);
 		return redirect()->to(base_url() . '/clientes');
 	}
 
