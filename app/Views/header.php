@@ -50,6 +50,17 @@
                         </div>
                         
                         <a class="nav-link" href="<?php echo base_url ();?>/Clientes"><div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>Clientes</a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subAdministracion" aria-expanded="false" aria-controls="subAdministracion">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+                            Administración
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="subAdministracion" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url ();?>/configuracion">Configuración</a>
+                                
+                            </nav>
+                        </div>
 
                     </div>                
                 </div>
