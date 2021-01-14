@@ -57,8 +57,8 @@
                         </a>
                         <div class="collapse" id="subAdministracion" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url ();?>/configuracion">Configuración</a>
-                                
+                                <a class="nav-link" href="<?php echo base_url ();?>/Configuracion">Configuración</a>
+                                <a class="nav-link" href="<?php echo base_url ();?>/Usuarios">Usuarios</a>
                             </nav>
                         </div>
 
