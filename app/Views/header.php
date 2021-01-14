@@ -1,3 +1,8 @@
+<?php 
+
+$user_session = session();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,12 +26,13 @@
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?php echo $user_session->nombre;?> <i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="<?php echo base_url ();?>/Usuarios/cambiaPassword">Cambiar contraseña</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="<?php echo base_url ();?>/Usuarios/logout">Salir</a>
                 </div>
             </li>
         </ul>
