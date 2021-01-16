@@ -7,8 +7,12 @@
                     <div class="row">
 
                         <div class="col-12 col-sm-4">
+                            <input type="hidden" id="id_producto" name="id_producto" />
                             <label>Código</label>
-                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el codigo" autofocus />
+
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" onkeyup="buscarProducto(event, this, this.value)" autofocus />
+
+                            <label for="codigo" id="resultado_error" style="color: red;"></label>
                         </div>
 
                         <div class="col-12 col-sm-4">
@@ -28,7 +32,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label>Precio de compra</label>
-                            <input type="text" class="form-control" id="precio_compra" name="precio_compra" />
+                            <input type="text" class="form-control" id="precio_compra" name="precio_compra" disabled />
                         </div>
 
                         <div class="col-12 col-sm-4">
@@ -73,3 +77,48 @@
 
         </div>
     </main>
+
+    <script>
+        $(document).ready(function(){
+
+        });
+
+        function buscarProducto(e, tagCodigo, codigo){
+            var enterKey = 13;
+
+            if (codigo != '') {
+                if (e.which == enterKey) {
+                    $.ajax({
+                        url: '<?php echo base_url(); ?>/productos/buscarPorCodigo/' + codigo,
+                        dataType: 'json',
+                        success: function (resultado) {
+                            if (resultado == 0) {
+                                $(tagCodigo).val('');
+                            }
+                            else {
+                                $(tagCodigo).removeClass('has-error');
+
+                                $("#resultado_error").html(resultado.error);
+
+                                if (resultado.existe) {
+                                    $("#id_producto").val(resultado.datos.id);
+                                    $("#nombre").val(resultado.datos.nombre);
+                                    $("#cantidad").val(1);
+                                    $("#precio_compra").val(resultado.datos.precio_compra);
+                                    $("#subtotal").val(resultado.datos.precio_compra);
+                                    $("#cantidad").focus();
+                                }
+                                else {
+                                    $("#id_producto").val('');
+                                    $("#nombre").val('');
+                                    $("#cantidad").val('');
+                                    $("#precio_compra").val('');
+                                    $("#subtotal").val('');
+                                }
+                            }                            
+                        }
+                    });
+                }
+            }
+        }
+    </script>
