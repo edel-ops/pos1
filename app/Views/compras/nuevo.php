@@ -1,3 +1,7 @@
+<?php 
+    $id_compra = uniqid();
+?>
+
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
@@ -42,7 +46,7 @@
 
                         <div class="col-12 col-sm-4">
                             <label><br>&nbsp;</label>
-                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary">Agregar producto</button>
+                            <button id="agregar_producto" name="agregar_producto" type="button" class="btn btn-primary" onclick="agregarProducto(id_producto.value, cantidad.value, '<?php echo $id_compra; ?>')">Agregar producto</button>
                         </div>
 
                     </div>
@@ -79,11 +83,11 @@
     </main>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
         });
 
-        function buscarProducto(e, tagCodigo, codigo){
+        function buscarProducto(e, tagCodigo, codigo) {
             var enterKey = 13;
 
             if (codigo != '') {
@@ -91,11 +95,10 @@
                     $.ajax({
                         url: '<?php echo base_url(); ?>/productos/buscarPorCodigo/' + codigo,
                         dataType: 'json',
-                        success: function (resultado) {
+                        success: function(resultado) {
                             if (resultado == 0) {
                                 $(tagCodigo).val('');
-                            }
-                            else {
+                            } else {
                                 $(tagCodigo).removeClass('has-error');
 
                                 $("#resultado_error").html(resultado.error);
@@ -107,18 +110,50 @@
                                     $("#precio_compra").val(resultado.datos.precio_compra);
                                     $("#subtotal").val(resultado.datos.precio_compra);
                                     $("#cantidad").focus();
-                                }
-                                else {
+                                } else {
                                     $("#id_producto").val('');
                                     $("#nombre").val('');
                                     $("#cantidad").val('');
                                     $("#precio_compra").val('');
                                     $("#subtotal").val('');
                                 }
-                            }                            
+                            }
                         }
                     });
                 }
+            }
+        }
+
+        function agregarProducto(id_producto, cantidad, id_compra) {
+
+            if (id_producto != null && id_producto != 0 && cantidad > 0) {
+                $.ajax({
+                    url: '<?php echo base_url(); ?>/TemporalCompra/insertar/' + id_producto + "/" + cantidad + "/" + id_compra,
+
+                    success: function(resultado) {
+                        if (resultado == 0) {
+
+                        } else {
+
+                           /* $("#resultado_error").html(resultado.error);
+
+                            if (resultado.existe) {
+                                $("#id_producto").val(resultado.datos.id);
+                                $("#nombre").val(resultado.datos.nombre);
+                                $("#cantidad").val(1);
+                                $("#precio_compra").val(resultado.datos.precio_compra);
+                                $("#subtotal").val(resultado.datos.precio_compra);
+                                $("#cantidad").focus();
+                            } else {
+                                $("#id_producto").val('');
+                                $("#nombre").val('');
+                                $("#cantidad").val('');
+                                $("#precio_compra").val('');
+                                $("#subtotal").val('');
+                            } */
+                        }
+                    }
+                });
             }
         }
     </script>
