@@ -29,13 +29,12 @@ class TemporalCompra extends BaseController
 			if ($datosExiste) {
 				$cantidad = $datosExiste->cantidad + $cantidad;
 				$subtotal = $cantidad * $datosExiste->precio;
-			}
-			else {
+			} else {
 				$subtotal = $cantidad * $producto['precio_compra'];
 
 				$this->temporal_compra->save([
 					'folio' => $id_compra,
-					'id_producto'=> $id_producto,
+					'id_producto' => $id_producto,
 					'codigo' => $producto['codigo'],
 					'nombre' => $producto['nombre'],
 					'precio' => $producto['precio_compra'],
@@ -43,67 +42,46 @@ class TemporalCompra extends BaseController
 					'subtotal' => $subtotal,
 				]);
 			}
-		}
-		else {
+		} else {
 			$error = 'No existe el producto';
 		}
 
+		$res['datos'] = $this->cargaProductos($id_compra);
+		$res['total'] = $this->totalProductos($id_compra);
 		$res['error'] = $error;
 		echo json_encode($res);
-
 	}
 
-	public function editar($id, $valid = null)
+	public function cargaProductos($id_compra)
 	{
+		$resultado = $this->temporal_compra->porCompra($id_compra);
+		$fila = '';
+		$numFila = 0;
 
-		$compra = $this->temporal_compra->where('id', $id)->first();
-
-		if ($valid != null) {
-			$data = ['titulo' => 'Editar compra', 'datos' => $compra, 'validation' => $valid];
-		} else {
-			$data = ['titulo' => 'Editar compra', 'datos' => $compra];
+		foreach ($resultado as $row) {
+			$numFila++;
+			$fila .= "<tr id='fila" . $numFila . "'>";
+			$fila .= "<td>" . $numFila . "</td>";
+			$fila .= "<td>" . $row['codigo'] . "</td>";
+			$fila .= "<td>" . $row['nombre'] . "</td>";
+			$fila .= "<td>" . $row['precio'] . "</td>";
+			$fila .= "<td>" . $row['cantidad'] . "</td>";
+			$fila .= "<td>" . $row['subtotal'] . "</td>";
+			$fila .= "<td><a onclick=\"eliminaProducto(" . $row['id_producto'] . ", '" . $id_compra . "')\"
+			class='borrar'><spam class='fas fa-fw-fa-trash'></spam></a></td>";
+			$fila .= "</tr>";
 		}
-
-
-
-		echo view('header');
-		echo view('temporal_compra/editar', $data);
-		echo view('footer');
+		return $fila;
 	}
 
-	public function actualizar()
+	public function totalProductos($id_compra)
 	{
-		if ($this->request->getMethod() == "post" && $this->validate($this->reglas)) {
-			$this->temporal_compra->update(
-				$this->request->getPost('id'),
-				[
-					'nombre' => $this->request->getPost('nombre'),
-					'nombre_corto' => $this->request->getPost('nombre_corto')
-				]
-			);
-			return redirect()->to(base_url() . '/temporal_compra');
-		} else {
-			return $this->editar($this->request->getPost('id'), $this->validator);
+		$resultado = $this->temporal_compra->porCompra($id_compra);
+		$total = 0;
+
+		foreach ($resultado as $row) {
+			$total += $row['subtotal'];
 		}
-	}
-
-	public function eliminar($id)
-	{
-
-		$this->temporal_compra->update(
-			$id,
-			['activo' => 0]
-		);
-		return redirect()->to(base_url() . '/temporal_compra');
-	}
-
-	public function reingresar($id)
-	{
-
-		$this->temporal_compra->update(
-			$id,
-			['activo' => 1]
-		);
-		return redirect()->to(base_url() . '/temporal_compra');
+		return $total;
 	}
 }
