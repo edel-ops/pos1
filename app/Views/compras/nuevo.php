@@ -6,12 +6,13 @@ $id_compra = uniqid();
     <main>
         <div class="container-fluid">
 
-            <form action="<?php echo base_url(); ?>/compras/insertar" autocomplete="off" method="post">
+            <form action="<?php echo base_url(); ?>/compras/insertar" autocomplete="off" id="form_compra" name="form_compra" method="post">
                 <div class="form-group">
                     <div class="row">
 
                         <div class="col-12 col-sm-4">
                             <input type="hidden" id="id_producto" name="id_producto" />
+                            <input type="hidden" id="id_compra" name="id_compra" value="<?php echo $id_compra; ?>"/>
                             <label>Código</label>
 
                             <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" onkeyup="buscarProducto(event, this, this.value)" autofocus />
@@ -84,7 +85,15 @@ $id_compra = uniqid();
 
     <script>
         $(document).ready(function() {
+            $("#completa_compra").click(function(){
+                let nFila = $("#tablaProductos tr").length;
 
+                if (nFila < 2) {
+                    
+                }else{
+                    $("#form_compra").submit();
+                }
+            });
         });
 
         function buscarProducto(e, tagCodigo, codigo) {
@@ -152,5 +161,23 @@ $id_compra = uniqid();
                     }
                 });
             }
+        }
+
+        function eliminarProducto(id_producto, id_compra) {
+
+            $.ajax({
+                url: '<?php echo base_url(); ?>/TemporalCompra/eliminar/' + id_producto + "/" + id_compra,
+                success: function(resultado) {
+                    if (resultado == 0) {
+                        $(tagCodigo).val('');
+                    } else {
+
+                        var resultado = JSON.parse(resultado);
+                        $("#tablaProductos tbody").empty();
+                        $("#tablaProductos tbody").append(resultado.datos);
+                        $("#total").val(resultado.total);
+                    }
+                }
+            });
         }
     </script>

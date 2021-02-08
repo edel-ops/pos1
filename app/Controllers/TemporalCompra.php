@@ -29,6 +29,9 @@ class TemporalCompra extends BaseController
 			if ($datosExiste) {
 				$cantidad = $datosExiste->cantidad + $cantidad;
 				$subtotal = $cantidad * $datosExiste->precio;
+
+				$this->temporal_compra->actualizarProductoCompra($id_producto, $id_compra, $cantidad, $subtotal);
+
 			} else {
 				$subtotal = $cantidad * $producto['precio_compra'];
 
@@ -47,7 +50,7 @@ class TemporalCompra extends BaseController
 		}
 
 		$res['datos'] = $this->cargaProductos($id_compra);
-		$res['total'] = $this->totalProductos($id_compra);
+		$res['total'] = number_format($this->totalProductos($id_compra), 2,'.', ',');
 		$res['error'] = $error;
 		echo json_encode($res);
 	}
@@ -67,8 +70,8 @@ class TemporalCompra extends BaseController
 			$fila .= "<td>" . $row['precio'] . "</td>";
 			$fila .= "<td>" . $row['cantidad'] . "</td>";
 			$fila .= "<td>" . $row['subtotal'] . "</td>";
-			$fila .= "<td><a onclick=\"eliminaProducto(" . $row['id_producto'] . ", '" . $id_compra . "')\"
-			class='borrar'><spam class='fas fa-fw-fa-trash'></spam></a></td>";
+			$fila .= "<td><a onclick=\"eliminarProducto(" . $row['id_producto'] . ", '" . $id_compra . "')\"
+			class='borrar'><spam class='fas fa-fw fa-trash'></spam></a></td>";
 			$fila .= "</tr>";
 		}
 		return $fila;
@@ -84,4 +87,26 @@ class TemporalCompra extends BaseController
 		}
 		return $total;
 	}
+
+	public function eliminar($id_producto, $id_compra)
+	{
+		$datosExiste = $this->temporal_compra->porIdProductoCompra($id_producto, $id_compra);
+
+		if ($datosExiste) {
+			if ($datosExiste->cantidad > 1) {
+				$cantidad = $datosExiste->cantidad -1;
+				$subtotal = $cantidad * $datosExiste->precio;
+				$this->temporal_compra->actualizarProductoCompra($id_producto, $id_compra, $cantidad, $subtotal);
+			}else {
+				$this->temporal_compra->eliminarProductoCompra($id_producto, $id_compra);
+			}
+		}
+
+		$res['datos'] = $this->cargaProductos($id_compra);
+		$res['total'] = number_format($this->totalProductos($id_compra), 2,'.', ',');
+		$res['error'] = '';
+		echo json_encode($res);
+
+	}
+
 }
