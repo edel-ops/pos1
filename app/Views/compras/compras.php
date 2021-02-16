@@ -5,7 +5,6 @@
 
             <div>
                 <p>
-                    <a href="<?php echo base_url() ?>/unidades/nuevo" class="btn btn-info">Agregar</a>
                     <a href="<?php echo base_url() ?>/unidades/eliminados" class="btn btn-warning">Eliminados</a>
                 </p>
             </div>
@@ -16,24 +15,25 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Nombre corto</th>
-                            <th></th>
+                            <th>Folio</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <?php foreach ($datos as $datos) { ?>
+                        <?php foreach ($compras as $compra) { ?>
 
                             <tr>
-                                <td><?php echo $datos['id']; ?></td>
-                                <td><?php echo $datos['nombre']; ?></td>
-                                <td><?php echo $datos['nombre_corto']; ?></td>
+                                <td><?php echo $compra['id']; ?></td>
+                                <td><?php echo $compra['folio']; ?></td>
+                                <td><?php echo $compra['total']; ?></td>
+                                <td><?php echo $compra['fecha_alta']; ?></td>
 
-                                <td><a href="<?php echo base_url() . '/unidades/editar/' . $datos['id']; ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
+                                <td><a href="<?php echo base_url() . '/compras/muestraCompraPdf/' . $compra['id']; ?>" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
 
-                                <td><a href="#" data-href="<?php echo base_url() . '/unidades/eliminar/' . $datos['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Eliminar Registro" class="btn btn-danger"><i class="fas fa-eraser"></i></a></td>
+                    
 
                             </tr>
 
