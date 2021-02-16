@@ -44,7 +44,7 @@ $user_session = session();
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-hamburger"></i></div>
                             Productos
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
@@ -61,7 +61,7 @@ $user_session = session();
                         </a>
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuCompras" aria-expanded="false" aria-controls="menuCompras">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-cart-arrow-down"></i></div>
                             Compras
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
