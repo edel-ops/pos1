@@ -15,8 +15,10 @@ $user_session = session();
     <title>POS - CRM</title>
     <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>/js/all.min.js"></script>
     <script src="<?php echo base_url(); ?>/js/jquery-3.5.1.min.js"></script>
+    <script src="<?php echo base_url(); ?>/js/jquery-ui/jquery-ui.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -71,6 +73,10 @@ $user_session = session();
                                 <a class="nav-link" href="<?php echo base_url(); ?>/Compras">Compras</a>
                             </nav>
                         </div>
+
+                        <a class="nav-link" href="<?php echo base_url(); ?>/Ventas/venta">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>Caja
+                        </a>
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subAdministracion" aria-expanded="false" aria-controls="subAdministracion">
                             <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
