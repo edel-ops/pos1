@@ -31,4 +31,31 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-12 col-sm-4">
+                            <input type="hidden" id="id_producto" name="id_producto" />
+                            <label>Código de barras</label>
+
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" onkeyup="buscarProducto(event, this, this.value)" autofocus />
+
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label for="codigo" id="resultado_error" style="color: red;"></label>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <label for="" style="font-weight: bold; font-size: 30px; text-align: center;">Total C$</label>
+                            <input type="text" id="total" name="total" size="7" readonly="true" value="0.00" style="font-weight: bold; font-size: 30px; text-align: center;" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" id="completa_venta" class="btn btn-success">Completar venta</button>
+                </div>
+
             </form>
