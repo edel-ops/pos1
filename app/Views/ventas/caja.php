@@ -38,7 +38,8 @@
                             <input type="hidden" id="id_producto" name="id_producto" />
                             <label>Código de barras</label>
 
-                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" onkeyup="buscarProducto(event, this, this.value)" autofocus />
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" 
+                            onkeyup="agregarProducto(event, this.value, 1, <?php echo $idVentaTmp; ?>);" autofocus />
 
                         </div>
 
@@ -90,4 +91,57 @@
                 }
             });
         });
+
+        $(function() {
+            $("#codigo").autocomplete({
+                source: "<?php echo base_url(); ?>/productos/autocompleteData",
+                minLength: 3,
+                select: function(event, ui) {
+                    event.preventDefault();
+                    $("#codigo").val(ui.item.value);
+                    setTimeout(
+                        function() {
+                            e = jQuery.Event("keypress");
+                            e.wich = 13;
+                            agregarProducto(e, ui.item.id, 1, '<?php echo $idVentaTmp; ?>');
+                        }
+                    )
+                }
+            });
+        });
+
+        function agregarProducto(e, id_producto, cantidad, id_venta) {
+
+            let enterKey = 13;
+            if (codigo != '') {
+                if (e.wich == enterKey) {
+                    if (id_producto != null && id_producto != 0 && cantidad > 0) {
+                        $.ajax({
+                            url: '<?php echo base_url(); ?>/TemporalCompra/insertar/' + id_producto + "/" + cantidad + "/" + id_venta,
+
+                            success: function(resultado) {
+                                if (resultado == 0) {
+
+                                } else {
+
+                                    var resultado = JSON.parse(resultado);
+
+                                    if (resultado.error == '') {
+                                        $("#tablaProductos tbody").empty();
+                                        $("#tablaProductos tbody").append(resultado.datos);
+                                        $("#total").val(resultado.total);
+                                        $("#id_producto").val('');
+                                        $("#codigo").val('');
+                                        $("#nombre").val('');
+                                        $("#cantidad").val('');
+                                        $("#precio_compra").val('');
+                                        $("#subtotal").val('');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
     </script>
