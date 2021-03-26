@@ -58,4 +58,36 @@
                     <button type="button" id="completa_venta" class="btn btn-success">Completar venta</button>
                 </div>
 
+                <div class="row">
+                    <table id="tablaProductos" class="table table-hover table-striped table-sm table-responsive tablaProductos" width="100%">
+                        <thead class="thead-dark">
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th width="1%"></th>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
             </form>
+
+        </div>
+    </main>
+
+    <script>
+        $(function() {
+            $("#cliente").autocomplete({
+                source: "<?php echo base_url(); ?>/clientes/autocompleteData",
+                minLength: 3,
+                select: function(event, ui) {
+                    event.preventDefault();
+                    $("#id_cliente").val(ui.item.id);
+                    $("#cliente").val(ui.item.value);
+                }
+            });
+        });
+    </script>
