@@ -40,21 +40,24 @@ class Ventas extends BaseController
 
 	public function insertar()
 	{
-		$id_compra = $this->request->getPost('id_compra');
+		$id_venta = $this->request->getPost('id_venta');
 		$total = preg_replace('/[\$,]/', '', $this->request->getPost('total'));
+		$forma_pago = $this->request->getPost('forma_pago');
+		$id_cliente = $this->request->getPost('id_cliente');
 
 		$session = session();
 
-		$resultadoId = $this->ventas->insertarCompra($id_compra, $total, $session->id_usuario);
+		$resultadoId = $this->ventas->insertarVenta($id_venta, $total, $session->id_usuario, 
+		$session->id_caja, $id_cliente, $forma_pago);
 
 		$this->temporal_compra = new TemporalCompraModel();
 
 		if ($resultadoId) {
-			$resultadoCompra = $this->temporal_compra->porCompra($id_compra);
+			$resultadoCompra = $this->temporal_compra->porCompra($id_venta);
 
 			foreach ($resultadoCompra as $row) {
 				$this->detalle_venta->save([
-					'id_compra' => $resultadoId,
+					'id_venta' => $resultadoId,
 					'id_producto' => $row['id_producto'],
 					'nombre' => $row['nombre'],
 					'cantidad' => $row['cantidad'],
@@ -62,12 +65,11 @@ class Ventas extends BaseController
 				]);
 
 				$this->productos = new ProductosModel();
-				$this->productos->actualizaStock($row['id_producto'], $row['cantidad']);
+				$this->productos->actualizaStock($row['id_producto'], $row['cantidad'], '-');
 			}
 
-			$this->temporal_compra->eliminarCompra($id_compra);
+			$this->temporal_compra->eliminarCompra($id_venta);
 		}
-		return redirect()->to(base_url() . "/ventas/muestraCompraPdf/".$resultadoId);
+		//return redirect()->to(base_url() . "/ventas/muestraCompraPdf/" . $resultadoId);
 	}
-
 }

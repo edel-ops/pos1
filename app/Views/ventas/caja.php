@@ -6,7 +6,7 @@
 
             <br>
 
-            <form id="form_venta" name="form_venta" class="form-horizontal" method="POST" action="<?php base_url(); ?>/ventas/insertar" autocomplete="off">
+            <form id="form_venta" name="form_venta" class="form-horizontal" method="POST" action="<?php echo base_url(); ?>/ventas/insertar" autocomplete="off">
 
                 <input type="hidden" name="id_venta" name="id_venta" value="<?php echo $idVentaTmp; ?>" />
 
@@ -38,8 +38,7 @@
                             <input type="hidden" id="id_producto" name="id_producto" />
                             <label>Código de barras</label>
 
-                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" 
-                            onkeyup="agregarProducto(event, this.value, 1, <?php echo $idVentaTmp; ?>);" autofocus />
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Escribe el código" onkeyup="agregarProducto(event, this.value, 1, <?php echo $idVentaTmp; ?>);" autofocus />
 
                         </div>
 
@@ -144,4 +143,33 @@
                 }
             }
         }
+
+        function eliminarProducto(id_producto, id_venta) {
+
+            $.ajax({
+                url: '<?php echo base_url(); ?>/TemporalCompra/eliminar/' + id_producto + "/" + id_venta,
+                success: function(resultado) {
+                    if (resultado == 0) {
+                        $(tagCodigo).val('');
+                    } else {
+
+                        var resultado = JSON.parse(resultado);
+                        $("#tablaProductos tbody").empty();
+                        $("#tablaProductos tbody").append(resultado.datos);
+                        $("#total").val(resultado.total);
+                    }
+                }
+            });
+        }
+
+        $(function() {
+            $("#completa_venta").click(function() {
+                let nFilas = $("#tablaProductos tr").length;
+                if (nFilas < 2) {
+                    alert("Debe agregar un producto, no sea pak pak");
+                } else {
+                    $("#form_venta").submit();
+                }
+            });
+        });
     </script>
