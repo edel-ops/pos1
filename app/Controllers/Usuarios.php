@@ -178,8 +178,7 @@ class Usuarios extends BaseController
 			$this->usuarios->update(
 				$this->request->getPost('id'),
 				[
-					'nombre' => $this->request->getPost('nombre'),
-					'nombre_corto' => $this->request->getPost('nombre_corto')
+					'nombre' => $this->request->getPost('nombre')
 				]
 			);
 			return redirect()->to(base_url() . '/usuarios');
