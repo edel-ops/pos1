@@ -23,10 +23,10 @@ class Ventas extends BaseController
 		helper(['form']);
 	}
 
-	public function index($activo = 1)
+	public function index()
 	{
-		$ventas = $this->ventas->where('activo', $activo)->findAll();
-		$data = ['titulo' => 'Historial de ventas', 'ventas' => $ventas];
+		$datos = $this->ventas->obtener(1);
+		$data = ['titulo' => 'Historial de ventas', 'datos' => $datos];
 
 		echo view('header');
 		echo view('ventas/ventas', $data);
