@@ -9,7 +9,7 @@
                 </div>
             <?php } ?>
 
-            <form action="<?php echo base_url(); ?>/configuracion/actualizar" autocomplete="off" method="post">
+            <form action="<?php echo base_url(); ?>/configuracion/actualizar" autocomplete="off" method="post" enctype="multipart/form-data">
                 <?php csrf_field(); ?>
                 <div class="form-group">
                     <div class="row">
@@ -43,12 +43,24 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label>Direccion</label>
-                            <textarea class="form-control" name="tienda_direccion" id="tienda_direccion" cols="30" rows="5" required ><?php echo $direccion['valor']; ?></textarea>
+                            <textarea class="form-control" name="tienda_direccion" id="tienda_direccion" cols="30" rows="5" required><?php echo $direccion['valor']; ?></textarea>
                         </div>
 
                         <div class="col-12 col-sm-6">
                             <label>Leyenda del ticket</label>
-                            <textarea class="form-control" name="ticket_leyenda" id="ticket_leyenda" cols="30" rows="5" required ><?php echo $leyenda['valor']; ?></textarea>
+                            <textarea class="form-control" name="ticket_leyenda" id="ticket_leyenda" cols="30" rows="5" required><?php echo $leyenda['valor']; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label>Logotipo</label>
+                            <img src="" class="img-responsive" width="200" />
+
+                            <input type="file" id="tienda_logo" name="tienda_logo" accept="image/png" />
+                            <p class="text-info">Cargar imagen en formato PNG de 150x150 pixeles</p>
                         </div>
                     </div>
                 </div>

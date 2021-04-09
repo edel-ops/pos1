@@ -57,6 +57,17 @@ class Configuracion extends BaseController
 			$this->configuracion->whereIn('nombre', ['tienda_email'])->set(['valor' => $this->request->getPost('tienda_email')])->update();
 			$this->configuracion->whereIn('nombre', ['tienda_direccion'])->set(['valor' => $this->request->getPost('tienda_direccion')])->update();
 			$this->configuracion->whereIn('nombre', ['ticket_leyenda'])->set(['valor' => $this->request->getPost('ticket_leyenda')])->update();
+			$img = $this->request->getFile('tienda_logo');
+			
+			$validacion = $this->validate([
+				'tienda_logo' => [
+					'uploaded[tienda_logo]',
+					'mime_in[tienda_logo, image/png]',
+					'max_size[tienda_logo, 4096]'					
+				]
+			]);
+
+			
 
 			return redirect()->to(base_url() . '/configuracion');
 		}
