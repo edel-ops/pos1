@@ -19,6 +19,7 @@ class Ventas extends BaseController
 	{
 		$this->ventas = new VentasModel();
 		$this->detalle_venta = new DetalleVentaModel();
+		$this->productos = new ProductosModel();
 		$this->configuracion = new ConfiguracionModel();
 		helper(['form']);
 	}
@@ -30,6 +31,16 @@ class Ventas extends BaseController
 
 		echo view('header');
 		echo view('ventas/ventas', $data);
+		echo view('footer');
+	}
+
+	public function eliminados()
+	{
+		$datos = $this->ventas->obtener(0);
+		$data = ['titulo' => 'Ventas eliminadas', 'datos' => $datos];
+
+		echo view('header');
+		echo view('ventas/eliminados', $data);
 		echo view('footer');
 	}
 
@@ -148,5 +159,19 @@ class Ventas extends BaseController
 
 		$this->response->setHeader('Content-Type', 'application/pdf');
 		$pdf->Output("ticket.pdf", "I");
+	}
+
+	public function eliminar($id)
+	{
+		$productos = $this->detalle_venta->where('id_venta', $id)->findAll();
+
+		foreach ($productos as $producto) {
+			
+			$this->productos->actualizaStock($producto['id_producto'], $producto['cantidad'], '+');
+		}
+
+		$this->ventas->update($id, ['activo' => 0]);
+
+		return redirect()->to(base_url(). '/ventas');
 	}
 }

@@ -5,7 +5,7 @@
 
             <div>
                 <p>
-                    <a href="<?php echo base_url() ?>/ventas/eliminados" class="btn btn-warning">Eliminados</a>
+                    <a href="<?php echo base_url() ?>/ventas" class="btn btn-warning">Ventas</a>
                 </p>
             </div>
 
@@ -19,7 +19,6 @@
                             <th>Cliente</th>
                             <th>Total</th>
                             <th>Cajero</th>
-                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -35,9 +34,6 @@
                                 <td><?php echo $datos['cajero']; ?></td>
 
                                 <td><a href="<?php echo base_url() . '/ventas/muestraTicket/' . $datos['id']; ?>" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
-
-                                <td><a href="#" data-href="<?php echo base_url() . '/ventas/eliminar/' . $datos['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Eliminar Registro" class="btn btn-danger"><i class="fas fa-eraser"></i></a></td>
-
                             </tr>
 
                         <?php } ?>

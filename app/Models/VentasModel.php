@@ -44,6 +44,7 @@ class VentasModel extends Model
         $this->where('ventas.activo', $activo);
         $this->orderBy('ventas.fecha_alta', 'DESC');
         $datos = $this->findAll();
+        //print_r($this->getLastQuery());
         return $datos;
     }
 }
