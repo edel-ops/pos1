@@ -10,7 +10,7 @@
             <?php } ?>
 
             <?php \Config\Services::validation()->listErrors(); ?>
-            <form action="<?php echo base_url(); ?>/productos/insertar" autocomplete="off" method="post">
+            <form action="<?php echo base_url(); ?>/productos/insertar" autocomplete="off" method="post" enctype="multipart/form-data">
             
                 <div class="form-group">
                     <div class="row">
@@ -76,6 +76,16 @@
                                 <option value="1">Si</option>
                                 <option value="0">No</option>
                             </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label>Imagen</label><br />
+                            <input type="file" id="img_producto" name="img_producto" accept="image/jpeg" />
+                            <p class="text-info">Cargar imagen en formato jpeg de 150x150 pixeles</p>
                         </div>
                     </div>
                 </div>

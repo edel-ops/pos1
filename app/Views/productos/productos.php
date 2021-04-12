@@ -20,6 +20,7 @@
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>existencias</th>
+                            <th>Imagen</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -34,6 +35,8 @@
                                 <td><?php echo $datos['nombre']; ?></td>
                                 <td><?php echo $datos['precio_venta']; ?></td>
                                 <td><?php echo $datos['existencia']; ?></td>
+
+                                <td><img src="<?php echo base_url() . '/images/productos/'.$datos['id'].'.jpg'; ?>" width="80" /></td>
 
                                 <td><a href="<?php echo base_url() . '/productos/editar/' . $datos['id']; ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
 

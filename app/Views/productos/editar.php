@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
             <?php \Config\Services::validation()->listErrors(); ?>
-            <form action="<?php echo base_url(); ?>/productos/actualizar" autocomplete="off" method="post">
+            <form action="<?php echo base_url(); ?>/productos/actualizar" autocomplete="off" method="post" enctype="multipart/form-data">
             <?php csrf_field(); ?>
 
             <input type="hidden" id="id" name="id" value="<?php echo $productos['id']; ?>" /> 
@@ -81,6 +81,17 @@
                                 <option value="0" <?php if($productos['inventariable'] == 0)
                                 { echo 'selected';} ?>>No</option>
                             </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label>Imagen</label><br />
+                            <img src="<?php echo base_url() . '/images/productos/'.$productos['id'].'.jpg'; ?>" class="img-responsive" width="200" /><br /><br />
+                            <input type="file" id="img_producto" name="img_producto" accept="image/jpeg" />
+                            <p class="text-info">Cargar imagen en formato jpeg de 150x150 pixeles</p>
                         </div>
                     </div>
                 </div>

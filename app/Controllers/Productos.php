@@ -19,7 +19,7 @@ class Productos extends BaseController
 		$this->unidades = new UnidadesModel();
 		$this->categorias = new CategoriasModel();
 
-		helper(['form']);
+		helper(['form', 'upload']);
 
 		$this->reglas = [
 			'codigo' => [
@@ -87,6 +87,32 @@ class Productos extends BaseController
 				'id_unidad' => $this->request->getPost('id_unidad'),
 				'id_categoria' => $this->request->getPost('id_categoria')
 			]);
+
+			$id = $this->productos->insertID();
+
+			$validacion = $this->validate([
+				'img_producto' => [
+					'uploaded[img_producto]',
+					'mime_in[img_producto,image/jpg,image/jpeg]',
+					'max_size[img_producto, 4096]'
+				]
+			]);
+
+			if ($validacion) {
+
+				$ruta_logo = "images/productos/" . $id . ".jpg";
+
+				if (file_exists($ruta_logo)) {
+					unlink($ruta_logo);
+				}
+
+				$img = $this->request->getFile('img_producto');
+				$img->move('./images/productos/', $id . '.jpg');
+			} else {
+				echo 'Error en la validacion';
+				exit;
+			}
+
 			return redirect()->to(base_url() . '/productos');
 		} else {
 			$unidades = $this->unidades->where('activo', 1)->findAll();
@@ -125,6 +151,32 @@ class Productos extends BaseController
 			'id_unidad' => $this->request->getPost('id_unidad'),
 			'id_categoria' => $this->request->getPost('id_categoria')
 		]);
+
+		$id = $this->request->getPost('id');
+
+		$validacion = $this->validate([
+			'img_producto' => [
+				'uploaded[img_producto]',
+				'mime_in[img_producto,image/jpg,image/jpeg]',
+				'max_size[img_producto, 4096]'
+			]
+		]);
+
+		if ($validacion) {
+
+			$ruta_logo = "images/productos/" . $id . ".jpg";
+
+			if (file_exists($ruta_logo)) {
+				unlink($ruta_logo);
+			}
+
+			$img = $this->request->getFile('img_producto');
+			$img->move('./images/productos/', $id . '.jpg');
+		} else {
+			echo 'Error en la validacion';
+			exit;
+		}
+
 		return redirect()->to(base_url() . '/productos');
 	}
 
@@ -162,12 +214,11 @@ class Productos extends BaseController
 		if ($datos) {
 			$res['datos'] = $datos;
 			$res['existe'] = true;
-		}
-		else {
+		} else {
 			$res['error'] = 'No existe el producto';
 			$res['existe'] = false;
 		}
-		
+
 		echo json_encode($res);
 	}
 
@@ -181,7 +232,7 @@ class Productos extends BaseController
 			foreach ($productos as $row) {
 				$data['id'] = $row['id'];
 				$data['value'] = $row['codigo'];
-				$data['label'] = $row['codigo']. ' - '.$row['nombre'];
+				$data['label'] = $row['codigo'] . ' - ' . $row['nombre'];
 
 				array_push($returnData, $data);
 			}
