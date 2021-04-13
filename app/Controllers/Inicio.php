@@ -16,10 +16,11 @@ class Inicio extends BaseController
 	public function index()
 	{
 		$total = $this->productoModel->totalProductos();
+		$minimo = $this->productoModel->productosMinimo();
 		$hoy = date('Y-m-d');
 		$totalVentas = $this->ventaModel->totalDia($hoy);
 
-		$datos = ['total' => $total, 'totalVentas' => $totalVentas];
+		$datos = ['total' => $total, 'totalVentas' => $totalVentas, 'minimo' => $minimo];
 
 		echo view('header');
 		echo view('inicio', $datos);

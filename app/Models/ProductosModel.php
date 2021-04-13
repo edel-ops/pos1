@@ -37,4 +37,12 @@ class ProductosModel extends Model
     {
         return $this->where('activo', 1)->countAllResults(); // la consulta trae a todos los que son activo = 1 y countAll los cuenta
     }
+
+    public function productosMinimo()
+    {
+        $where = "stock_minimo >= existencia AND inventariable = 1 AND activo = 1";
+        $this->where($where);
+        $sql = $this->countAllResults();
+        return $sql;
+    }
 }

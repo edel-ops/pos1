@@ -50,7 +50,8 @@ class VentasModel extends Model
 
     public function totalDia($fecha)
     {
+        $this->select("sum(total) AS total");
         $where = "activo = 1 AND  DATE(fecha_alta) = '$fecha'";
-        return $this->where($where)->countAllResults(); // la consulta trae a todos los que son activo = 1 y fecha de hoy, countAll los cuenta
+        return $this->where($where)->first(); // la consulta trae a todos los que son activo = 1 y fecha de hoy
     }
 }
