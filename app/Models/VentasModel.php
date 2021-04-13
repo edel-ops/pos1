@@ -47,5 +47,10 @@ class VentasModel extends Model
         //print_r($this->getLastQuery());
         return $datos;
     }
+
+    public function totalDia($fecha)
+    {
+        $where = "activo = 1 AND  DATE(fecha_alta) = '$fecha'";
+        return $this->where($where)->countAllResults(); // la consulta trae a todos los que son activo = 1 y fecha de hoy, countAll los cuenta
+    }
 }
-?>

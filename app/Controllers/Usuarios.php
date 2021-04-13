@@ -230,7 +230,7 @@ class Usuarios extends BaseController
 
 					$session = session();
 					$session->set($datosSesion);
-					return redirect()->to(base_url() . '/configuracion');
+					return redirect()->to(base_url() . '/inicio');
 				} else {
 					$data['error'] = "Contraseña incorrecta";
 					echo view('login', $data);
