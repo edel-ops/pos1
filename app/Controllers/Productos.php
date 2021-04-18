@@ -240,4 +240,32 @@ class Productos extends BaseController
 
 		echo json_encode($returnData);
 	}
+
+	function muestraCodigo()
+	{
+		echo view('header');
+		echo view('productos/ver_codigos');
+		echo view('footer');
+	}
+
+	public function generaBarras()
+	{
+		$pdf = new \FPDF('p', 'mm', 'letter');
+		$pdf->AddPage();
+		$pdf->SetMargins(10, 10, 10);
+		$pdf->SetTitle("Códigos de barras");
+
+		$productos = $this->productos->where('activo', 1)->findAll();
+		foreach ($productos as $producto) {
+			$codigo = $producto['codigo'];
+
+			$generaBarcode = new \barcode_genera();
+			$generaBarcode->barcode($codigo . ".png", $codigo, 20, "horizontal", "code39", true);
+
+			$pdf->Image($codigo . ".png");
+		}
+
+		$this->response->setHeader('Content-Type', 'application/pdf');
+		$pdf->Output('I', 'Codigo.pdf');
+	}
 }
