@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ProductosModel;
 use App\Models\UnidadesModel;
 use App\Models\CategoriasModel;
-
+use PDF;
 
 class Productos extends BaseController
 {
@@ -260,12 +260,44 @@ class Productos extends BaseController
 			$codigo = $producto['codigo'];
 
 			$generaBarcode = new \barcode_genera();
-			$generaBarcode->barcode($codigo . ".png", $codigo, 20, "horizontal", "code39", true);
+			$generaBarcode->barcode("images/barcode/" . $codigo . ".png", $codigo, 20, "horizontal", "code39", true);
 
-			$pdf->Image($codigo . ".png");
+			$pdf->Image("images/barcode/" . $codigo . ".png");
+			// unlink("images/barcode/" . $codigo . ".png"); //para borrar codigos de barras cuando sean demasiados
 		}
 
 		$this->response->setHeader('Content-Type', 'application/pdf');
 		$pdf->Output('I', 'Codigo.pdf');
+	}
+
+	function mostrarMinimos()
+	{
+		echo view('header');
+		echo view('productos/ver_minimos');
+		echo view('footer');
+	}
+
+	public function generaMinimosPdf()
+	{
+		$pdf = new \FPDF('p', 'mm', 'letter');
+		$pdf->AddPage();
+		$pdf->SetMargins(10, 10, 10);
+		$pdf->SetTitle("Productos con stock minimo");
+		$pdf->SetFont("Arial", 'B', 10);
+
+		$pdf->Image("images/logotipo.png", 10, 8, 30);
+
+		$pdf->Cell(0, 5, utf8_decode("Reporte de productos con stock mínimo"), 0, 1, 'C');
+		$pdf->Ln(10);
+
+		$pdf->Cell(30, 5, utf8_decode("Código"), 1, 0, 'C');
+		$pdf->Cell(70, 5, utf8_decode("Nombre"), 1, 0, 'C');
+		$pdf->Cell(30, 5, utf8_decode("Existencias"), 1, 0, 'C');
+		$pdf->Cell(30, 5, utf8_decode("Stock mínimo"), 1, 5, 'C');
+
+
+
+		$this->response->setHeader('Content-Type', 'application/pdf');
+		$pdf->Output('I', 'StockMinimo.pdf');
 	}
 }

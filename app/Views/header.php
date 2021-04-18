@@ -83,6 +83,17 @@ $user_session = session();
                             <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt"></i></div>Ventas
                         </a>
 
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuReportes" aria-expanded="false" aria-controls="menuReportes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
+                            Reportes
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="menuReportes" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url(); ?>/productos/mostrarMinimos">Stock mínimo</a>
+                            </nav>
+                        </div>
+
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subAdministracion" aria-expanded="false" aria-controls="subAdministracion">
                             <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
                             Administración
