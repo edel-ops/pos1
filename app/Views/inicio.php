@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <?php echo $minimo; ?> Productos con stock mínimo
                         </div>
-                        <a class="card-footer text-white" href="<?php echo base_url(); ?>/productos">Ver detalles</a>
+                        <a class="card-footer text-white" href="<?php echo base_url(); ?>/productos/mostrarMinimos">Ver detalles</a>
                     </div>
                 </div>
             </div>

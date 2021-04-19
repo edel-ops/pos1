@@ -45,4 +45,10 @@ class ProductosModel extends Model
         $sql = $this->countAllResults();
         return $sql;
     }
+
+    public function getProductosMinimo()
+    {
+        $where = "stock_minimo >= existencia AND inventariable = 1 AND activo = 1";
+        return $this->where($where)->findAll();
+    }
 }

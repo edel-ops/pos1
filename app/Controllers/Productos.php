@@ -293,8 +293,16 @@ class Productos extends BaseController
 		$pdf->Cell(30, 5, utf8_decode("Código"), 1, 0, 'C');
 		$pdf->Cell(70, 5, utf8_decode("Nombre"), 1, 0, 'C');
 		$pdf->Cell(30, 5, utf8_decode("Existencias"), 1, 0, 'C');
-		$pdf->Cell(30, 5, utf8_decode("Stock mínimo"), 1, 5, 'C');
+		$pdf->Cell(30, 5, utf8_decode("Stock mínimo"), 1, 1, 'C');
 
+		$datosProductos = $this->productos->getProductosMinimo();
+
+		foreach ($datosProductos as $producto) {
+			$pdf->Cell(30, 5, $producto['codigo'], 1, 0, 'C');
+			$pdf->Cell(70, 5, utf8_decode($producto['nombre']), 1, 0, 'C');
+			$pdf->Cell(30, 5, $producto['existencia'], 1, 0, 'C');
+			$pdf->Cell(30, 5, $producto['stock_minimo'], 1, 1, 'C');
+		}
 
 
 		$this->response->setHeader('Content-Type', 'application/pdf');
