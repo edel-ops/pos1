@@ -13,7 +13,7 @@ $user_session = session();
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>POS - CRM</title>
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); ?>/favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); ?>/favicon.ico" />
     <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
@@ -103,6 +103,8 @@ $user_session = session();
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?php echo base_url(); ?>/Configuracion">Configuración</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>/Usuarios">Usuarios</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>/Roles">Roles</a>
+
                             </nav>
                         </div>
 
