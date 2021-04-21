@@ -8,12 +8,12 @@ use App\Models\TemporalCompraModel;
 use App\Models\DetalleVentaModel;
 use App\Models\ProductosModel;
 use App\Models\ConfiguracionModel;
-
+use App\Models\CajasModel;
 
 
 class Ventas extends BaseController
 {
-	protected $ventas, $temporal_compra, $detalle_venta, $productos, $configuracion;
+	protected $ventas, $temporal_compra, $detalle_venta, $productos, $configuracion, $cajas;
 
 	public function __construct()
 	{
@@ -21,6 +21,7 @@ class Ventas extends BaseController
 		$this->detalle_venta = new DetalleVentaModel();
 		$this->productos = new ProductosModel();
 		$this->configuracion = new ConfiguracionModel();
+		$this->cajas = new CajasModel();
 		helper(['form']);
 	}
 
@@ -60,8 +61,11 @@ class Ventas extends BaseController
 
 		$session = session();
 
+		$caja = $this->cajas->where('id', $session->id_caja)->first();
+		$folio = $caja['folio'];
+
 		$resultadoId = $this->ventas->insertarVenta(
-			$id_venta,
+			$folio,
 			$total,
 			$session->id_usuario,
 			$session->id_caja,
@@ -72,6 +76,10 @@ class Ventas extends BaseController
 		$this->temporal_compra = new TemporalCompraModel();
 
 		if ($resultadoId) {
+
+			$folio++;
+			$this->cajas->update($session->id_caja, ['folio' => $folio]);
+
 			$resultadoCompra = $this->temporal_compra->porCompra($id_venta);
 
 			foreach ($resultadoCompra as $row) {
@@ -131,7 +139,7 @@ class Ventas extends BaseController
 		$pdf->Ln();
 
 		$pdf->SetFont('Arial', 'B', 7);
-		
+
 		$pdf->Cell(7, 5, 'Cant.', 0, 0, 'L');
 		$pdf->Cell(35, 5, 'Nombre', 0, 0, 'L');
 		$pdf->Cell(15, 5, 'Precio', 0, 0, 'L');
@@ -166,12 +174,12 @@ class Ventas extends BaseController
 		$productos = $this->detalle_venta->where('id_venta', $id)->findAll();
 
 		foreach ($productos as $producto) {
-			
+
 			$this->productos->actualizaStock($producto['id_producto'], $producto['cantidad'], '+');
 		}
 
 		$this->ventas->update($id, ['activo' => 0]);
 
-		return redirect()->to(base_url(). '/ventas');
+		return redirect()->to(base_url() . '/ventas');
 	}
 }
