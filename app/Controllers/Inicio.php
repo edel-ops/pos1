@@ -5,7 +5,7 @@ use App\Models\VentasModel;
 
 class Inicio extends BaseController
 {
-	protected $productoModel, $ventaModel, $_session;
+	protected $productoModel, $ventaModel, $session;
 
 	public function __construct() {
 		$this->productoModel = new ProductosModel();
