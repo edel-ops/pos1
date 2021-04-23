@@ -9,16 +9,59 @@
                 </div>
             <?php } ?>
 
-            <form method="post" action="<?php echo base_url(); ?>/usuarios/actualizar" autocomplete="off" >
+            <form method="post" action="<?php echo base_url(); ?>/usuarios/actualizar" autocomplete="off">
 
-            <input type="hidden" value="<?php echo $datos['id']; ?>" name="id" />
+                <input type="hidden" value="<?php echo $datos['id']; ?>" name="id" />
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-12 col-sm-6">
+                            <label>Usuario</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $datos['usuario']; ?>" autofocus required />
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nombre']; ?>" autofocus required />
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <label>Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nombre']; ?>" autofocus required/>
+                            <label>Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" value="<?php echo set_value('password'); ?>" required />
                         </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label>Repite tu contraseña</label>
+                            <input type="password" class="form-control" id="repassword" name="repassword" value="<?php echo set_value('repassword'); ?>" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label>Caja</label>
+                            <select class="form-control" name="id_caja" id="id_caja" required>
+                                <option value="">Seleccionar caja</option>
+                                <?php foreach ($cajas as $caja) { ?>
+                                    <option value="<?php echo $caja['id']; ?>"><?php echo $caja['nombre']; ?></option><?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label>Rol</label>
+                            <select class="form-control" name="id_rol" id="id_rol" required>
+                                <option value="">Seleccionar rol</option>
+                                <?php foreach ($roles as $rol) { ?>
+                                    <option value="<?php echo $rol['id']; ?>"><?php echo $rol['nombre']; ?></option><?php } ?>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
 

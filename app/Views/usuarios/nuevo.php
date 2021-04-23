@@ -41,22 +41,22 @@
 
                 <div class="form-group">
                     <div class="row">
-                       <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-6">
                             <label>Caja</label>
                             <select class="form-control" name="id_caja" id="id_caja" required>
                                 <option value="">Seleccionar caja</option>
-                               <?php foreach($cajas as $caja) { ?>
-                                <option value="<?php echo $caja['id']; ?>"><?php echo $caja['nombre']; ?></option><?php } ?>
-                            </select>                            
+                                <?php foreach ($cajas as $caja) { ?>
+                                    <option value="<?php echo $caja['id']; ?>"><?php echo $caja['nombre']; ?></option><?php } ?>
+                            </select>
                         </div>
 
                         <div class="col-12 col-sm-6">
                             <label>Rol</label>
                             <select class="form-control" name="id_rol" id="id_rol" required>
                                 <option value="">Seleccionar rol</option>
-                                <?php foreach($roles as $rol) { ?>
-                                <option value="<?php echo $rol['id']; ?>"><?php echo $rol['nombre']; ?></option><?php } ?>
-                            </select>                            
+                                <?php foreach ($roles as $rol) { ?>
+                                    <option value="<?php echo $rol['id']; ?>"><?php echo $rol['nombre']; ?></option><?php } ?>
+                            </select>
                         </div>
 
                     </div>

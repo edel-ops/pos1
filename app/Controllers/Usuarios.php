@@ -65,6 +65,46 @@ class Usuarios extends BaseController
 			]
 		];
 
+		$this->reglasEditar = [
+			'usuario' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.'
+				]
+			],
+			'password' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.'
+				]
+			],
+			'repassword' => [
+				'rules' => 'required|matches[password]',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.',
+					'matches' => 'Las contraseñas no coinciden.'
+				]
+			],
+			'nombre' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.'
+				]
+			],
+			'id_caja' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.'
+				]
+			],
+			'id_rol' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'El campo {field} es obligatorio.'
+				]
+			]
+		];
+
 		$this->reglasLogin = [
 			'usuario' => [
 				'rules' => 'required',
@@ -160,11 +200,13 @@ class Usuarios extends BaseController
 	{
 
 		$usuario = $this->usuarios->where('id', $id)->first();
+		$cajas = $this->cajas->where('activo', 1)->findAll();
+		$roles = $this->roles->where('activo', 1)->findAll();
 
 		if ($valid != null) {
-			$data = ['titulo' => 'Editar usuario', 'datos' => $usuario, 'validation' => $valid];
+			$data = ['titulo' => 'Editar usuario', 'datos' => $usuario, 'cajas' => $cajas, 'roles' => $roles, 'validation' => $valid];
 		} else {
-			$data = ['titulo' => 'Editar usuario', 'datos' => $usuario];
+			$data = ['titulo' => 'Editar usuario', 'datos' => $usuario, 'cajas' => $cajas, 'roles' => $roles];
 		}
 
 
@@ -176,11 +218,19 @@ class Usuarios extends BaseController
 
 	public function actualizar()
 	{
-		if ($this->request->getMethod() == "post" && $this->validate($this->reglas)) {
+		if ($this->request->getMethod() == "post" && $this->validate($this->reglasEditar)) {
+
+			$hash = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+
 			$this->usuarios->update(
 				$this->request->getPost('id'),
 				[
-					'nombre' => $this->request->getPost('nombre')
+					'usuario' => $this->request->getPost('usuario'),
+					'password' => $hash,
+					'nombre' => $this->request->getPost('nombre'),
+					'id_caja' => $this->request->getPost('id_caja'),
+					'id_rol' => $this->request->getPost('id_rol'),
+					'activo' => 1
 				]
 			);
 			return redirect()->to(base_url() . '/usuarios');
@@ -262,14 +312,14 @@ class Usuarios extends BaseController
 		$session = session();
 
 		$ip = $_SERVER['REMOTE_ADDR'];
-					$detalles = $_SERVER['HTTP_USER_AGENT'];
+		$detalles = $_SERVER['HTTP_USER_AGENT'];
 
-					$this->logs->save([
-						'id_usuario' => $session->id_usuario,
-						'evento' => 'Cierre de sesión',
-						'ip' => $ip,
-						'detalles' => $detalles
-					]);
+		$this->logs->save([
+			'id_usuario' => $session->id_usuario,
+			'evento' => 'Cierre de sesión',
+			'ip' => $ip,
+			'detalles' => $detalles
+		]);
 
 		$session->destroy();
 		return redirect()->to(base_url());
