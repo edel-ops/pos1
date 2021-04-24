@@ -21,5 +21,16 @@ class UsuariosModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function obtener($usuario, $activo = 1)
+    {
+        $this->select('usuarios.*, r.nombre AS rol');
+        $this->join('roles AS r', 'usuarios.id_rol = r.id'); //IGUAL QUE AGREGAR UN INNER JOIN
+        $this->where('usuarios.usuario', $usuario);
+        $this->where('usuarios.activo', $activo);
+        $datosRol = $this->first();
+        //print_r($this->getLastQuery());
+        return $datosRol;
+    }
 }
 ?>

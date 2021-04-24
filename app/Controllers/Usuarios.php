@@ -267,17 +267,18 @@ class Usuarios extends BaseController
 	public function valida()
 	{
 		if ($this->request->getMethod() == "post" && $this->validate($this->reglasLogin)) {
-			$usuario = $this->request->getPost('usuario');
-			$password = $this->request->getPost('password');
-			$datosUsuario = $this->usuarios->where('usuario', $usuario)->first();
+			$usuario = $this->request->getPost('usuario'); // Recoger datos de la vista login
+			$password = $this->request->getPost('password'); // Recoger datos de la vista login
+			$datosUsuario = $this->usuarios->obtener($usuario); // Le envio el dato usuario a la funcion
 
 			if ($datosUsuario != null) {
-				if (password_verify($password, $datosUsuario['password'])) {
+				if (password_verify($password, $datosUsuario['password'])) { // La funcion me devuelve los demas datos de ese usuario
 					$datosSesion = [
 						'id_usuario' => $datosUsuario['id'],
 						'nombre' => $datosUsuario['nombre'],
 						'id_caja' => $datosUsuario['id_caja'],
-						'id_rol' => $datosUsuario['id_rol']
+						'id_rol' => $datosUsuario['id_rol'],
+						'rol' => $datosUsuario['rol']
 					];
 
 					$ip = $_SERVER['REMOTE_ADDR'];

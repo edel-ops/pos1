@@ -31,7 +31,7 @@ $user_session = session();
         <ul class="navbar-nav ml-auto mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php echo $user_session->nombre; ?> <i class="fas fa-user fa-fw"></i></a>
+                    <?php echo $user_session->nombre; ?> - <?php echo $user_session->rol; ?> <i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="<?php echo base_url(); ?>/Usuarios/cambiaPassword">Cambiar contraseña</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
