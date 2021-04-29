@@ -21,5 +21,14 @@ class LogsModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function obtener()
+    {
+        $this->select('logs.*, u.usuario AS usuario');
+        $this->join('usuarios AS u', 'logs.id_usuario = u.id'); //IGUAL QUE AGREGAR UN INNER JOIN
+        $datos = $this->findAll();
+        //print_r($this->getLastQuery());
+        return $datos;
+    }
 }
 ?>

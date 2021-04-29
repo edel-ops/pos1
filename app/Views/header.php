@@ -34,7 +34,7 @@ $user_session = session();
                     <?php echo $user_session->nombre; ?> - <?php echo $user_session->rol; ?> <i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="<?php echo base_url(); ?>/Usuarios/cambiaPassword">Cambiar contraseña</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
+                    <a class="dropdown-item" href="<?php echo base_url(); ?>/Logs">Registro de actividad</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php echo base_url(); ?>/Usuarios/logout">Salir</a>
                 </div>

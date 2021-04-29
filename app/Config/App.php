@@ -22,6 +22,8 @@ class App extends BaseConfig
 	|
 	*/
 	public $baseURL = 'http://localhost/pos/public/';
+	//public $baseURL = 'http://192.168.1.38/pos/public/';
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -99,7 +101,7 @@ class App extends BaseConfig
 	| dates with the date helper, and can be retrieved through app_timezone()
 	|
 	*/
-	public $appTimezone = 'America/Chicago';
+	public $appTimezone = 'America/Managua';
 
 	/*
 	|--------------------------------------------------------------------------
