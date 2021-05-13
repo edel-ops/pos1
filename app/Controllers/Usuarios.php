@@ -70,7 +70,7 @@ class Usuarios extends BaseController
 				'rules' => 'required|is_unique[usuarios.usuario,id,{id}]', // UPDATE ignorará la fila en la base de datos que tiene id = {id} cuando verifique que el usuario es único. 
 				'errors' => [
 					'required' => 'El campo {field} es obligatorio.',
-					'is_unique' => 'El campo {field} debe ser unico.'
+					'is_unique' => 'Este nombre de {field} ya existe, se te adelantaron genio.'
 
 				]
 			],

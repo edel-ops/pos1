@@ -40,8 +40,11 @@ class Filters extends BaseConfig
 				"/ventas",
 				"/productos",
 				"/productos/*",
-				"/usuarios"
-
+				"/usuarios",
+				"/compras",
+				"/compras/*",
+				"/configuracion",
+				"/roles"
 			]
 		]
 	];
