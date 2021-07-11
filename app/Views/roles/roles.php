@@ -29,6 +29,8 @@
                                 <td><?php echo $datos['id']; ?></td>
                                 <td><?php echo $datos['nombre']; ?></td>
 
+                                <td><a href="<?php echo base_url() . '/roles/permisos/' . $datos['id']; ?>" class="btn btn-info"><i class="fas fa-tasks"></i></a></td>
+
                                 <td><a href="<?php echo base_url() . '/roles/editar/' . $datos['id']; ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
 
                                 <td><a href="#" data-href="<?php echo base_url() . '/roles/eliminar/' . $datos['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Eliminar Registro" class="btn btn-danger"><i class="fas fa-eraser"></i></a></td>

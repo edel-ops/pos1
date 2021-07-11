@@ -4,15 +4,19 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\RolesModel;
+use App\Models\PermisosModel;
+
 
 
 class Roles extends BaseController
 {
-	protected $roles;
+	protected $roles, $permisos;
 
 	public function __construct()
 	{
 		$this->roles = new RolesModel();
+		$this->permisos = new PermisosModel();
+
 	}
 
 	public function index($activo = 1)
@@ -100,5 +104,16 @@ class Roles extends BaseController
 			['activo' => 1]
 		);
 		return redirect()->to(base_url() . '/roles');
+	}
+
+	public function permisos($idRol)
+	{
+		$permisos = $this->permisos->findAll();
+
+		$data = ['titulo' => 'Permisos de rol', 'permisos' => $permisos, 'id_rol' => $idRol];
+
+		echo view('header');
+		echo view('roles/permisos', $data);
+		echo view('footer'); 
 	}
 }
